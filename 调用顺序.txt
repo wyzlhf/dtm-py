@@ -1,0 +1,39 @@
+调用fire_tcc()函数，调用路径：/api/fireTcc，调用方式：get
+调用tcc_trans()函数
+调用trans_out_try()函数，调用路径：/api/TransOutTry，调用方式：post
+正在连接数据库： {'host': '124.222.54.172', 'port': '3306', 'user': 'root', 'password': 'lhf19820130'}
+调用barrier_from_req()函数
+affected 1 for sql: insert ignore into dtm_barrier.barrier(trans_type, gid, branch_id, op, barrier_id, reason) values('tcc','DTK2d8aRWsPkAygLrLy9ab','01','try','01','try')
+origin_affected: 0, current_affected: 1
+调用busi_callback()函数，上层调用函数：trans_out_try
+调用tcc_adjust_trading()函数
+affected 1 for sql: update dtm_busi.user_account set trading_balance=trading_balance+-30	where user_id=1 and trading_balance + -30 + balance >= 0
+127.0.0.1 - - [27/Nov/2022 16:00:32] "POST /api/TransOutTry?gid=DTK2d8aRWsPkAygLrLy9ab&trans_type=tcc&branch_id=01&op=try HTTP/1.1" 200 -
+调用trans_in_try()函数，调用路径：/api/TransInTry，调用方式：post
+正在连接数据库： {'host': '124.222.54.172', 'port': '3306', 'user': 'root', 'password': 'lhf19820130'}
+调用barrier_from_req()函数
+affected 1 for sql: insert ignore into dtm_barrier.barrier(trans_type, gid, branch_id, op, barrier_id, reason) values('tcc','DTK2d8aRWsPkAygLrLy9ab','02','try','01','try')
+origin_affected: 0, current_affected: 1
+调用busi_callback()函数，上层调用函数：trans_in_try
+调用tcc_adjust_trading()函数
+affected 1 for sql: update dtm_busi.user_account set trading_balance=trading_balance+30	where user_id=2 and trading_balance + 30 + balance >= 0
+127.0.0.1 - - [27/Nov/2022 16:00:35] "POST /api/TransInTry?gid=DTK2d8aRWsPkAygLrLy9ab&trans_type=tcc&branch_id=02&op=try HTTP/1.1" 200 -
+127.0.0.1 - - [27/Nov/2022 16:00:35] "GET /api/fireTcc HTTP/1.1" 200 -
+调用trans_in_confirm()函数，调用路径：/api/TransInConfirm，调用方式：post
+正在连接数据库： {'host': '124.222.54.172', 'port': '3306', 'user': 'root', 'password': 'lhf19820130'}
+调用barrier_from_req()函数
+affected 1 for sql: insert ignore into dtm_barrier.barrier(trans_type, gid, branch_id, op, barrier_id, reason) values('tcc','DTK2d8aRWsPkAygLrLy9ab','02','confirm','01','confirm')
+origin_affected: 0, current_affected: 1
+调用busi_callback()函数，上层调用函数：trans_in_confirm
+调用tcc_adjust_balance()函数
+affected 1 for sql: update dtm_busi.user_account set trading_balance=trading_balance-30, balance=balance+30 where user_id=2
+127.0.0.1 - - [27/Nov/2022 16:00:35] "POST /api/TransInConfirm?branch_id=02&gid=DTK2d8aRWsPkAygLrLy9ab&op=confirm&trans_type=tcc HTTP/1.1" 200 -
+调用trans_out_confirm()函数，调用路径：/api/TransOutConfirm，调用方式：post
+正在连接数据库： {'host': '124.222.54.172', 'port': '3306', 'user': 'root', 'password': 'lhf19820130'}
+调用barrier_from_req()函数
+affected 1 for sql: insert ignore into dtm_barrier.barrier(trans_type, gid, branch_id, op, barrier_id, reason) values('tcc','DTK2d8aRWsPkAygLrLy9ab','01','confirm','01','confirm')
+origin_affected: 0, current_affected: 1
+调用busi_callback()函数，上层调用函数：trans_out_confirm
+调用tcc_adjust_balance()函数
+affected 1 for sql: update dtm_busi.user_account set trading_balance=trading_balance--30, balance=balance+-30 where user_id=1
+127.0.0.1 - - [27/Nov/2022 16:00:36] "POST /api/TransOutConfirm?branch_id=01&gid=DTK2d8aRWsPkAygLrLy9ab&op=confirm&trans_type=tcc HTTP/1.1" 200 -
